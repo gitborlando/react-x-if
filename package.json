@@ -1,12 +1,33 @@
 {
   "version": "1.0.0",
+  "name": "vite-plugin-react-x-if",
+  "description": "A Vite plugin for React that enables Vue-like conditional rendering with `x-if` directive.",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "type": "module",
-  "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prepare": "npx simple-git-hooks",
-    "clean": "rm -rf node_modules pnpm-lock.yaml && pnpm -r clean",
-    "changeset": "changeset",
-    "gen:package": "npx tsx scripts/gen-package.ts"
+    "re-i": "rm -rf node_modules pnpm-lock.yaml && pnpm i",
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
   },
   "prettier": {
     "printWidth": 85,
@@ -17,8 +38,15 @@
     "singleQuote": true,
     "jsxSingleQuote": true
   },
+  "dependencies": {
+    "magic-string": "^0.30.17",
+    "oxc-parser": "^0.82.2",
+    "oxc-walker": "^0.4.0"
+  },
+  "peerDependencies": {
+    "vite": "^7.1.10"
+  },
   "devDependencies": {
-    "@changesets/cli": "^2.29.5",
     "@types/node": "^24.0.15",
     "@vitest/ui": "^3.2.4",
     "pretty-quick": "^4.2.2",
@@ -26,11 +54,9 @@
     "tsup": "^8.5.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "prettier": "^3.6.2"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "simple-git-hooks": {
     "pre-commit": "npx pretty-quick --staged"
   }
