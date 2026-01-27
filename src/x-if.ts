@@ -4,15 +4,20 @@ import { walk } from 'oxc-walker'
 
 let alias = 'x-if'
 
-export function reactXIf(sourceCode: string, suffix: string, _alias: string) {
-  if (!['jsx', 'tsx'].includes(suffix)) return sourceCode
+export function reactXIf(
+  sourceCode: string,
+  id: string,
+  suffix: string,
+  _alias: string,
+) {
+  if (!['jsx', 'tsx'].includes(suffix)) return null
 
   const res = parseSync(`index.${suffix}`, sourceCode, {
     astType: suffix.startsWith('ts') ? 'ts' : 'js',
     range: true,
   })
   if (res.errors.length > 0) {
-    return sourceCode
+    return null
   }
 
   alias = _alias
@@ -32,7 +37,18 @@ export function reactXIf(sourceCode: string, suffix: string, _alias: string) {
 
   transformAllXIfJsx(s)
 
-  return s.toString()
+  if (!s.hasChanged()) return null
+
+  const map = s.generateMap({
+    source: id,
+    includeContent: true,
+    hires: true,
+  })
+
+  return {
+    code: s.toString(),
+    map,
+  }
 }
 
 type XIfJsxInfo = {

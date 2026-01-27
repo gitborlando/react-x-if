@@ -8,12 +8,11 @@ export default function reactXIfPlugin(alias = 'x-if'): Plugin {
     transform(code, id) {
       const suffix = getSuffix(id)
 
-      let origin = code
       try {
-        return reactXIf(code, suffix, alias)
+        return reactXIf(code, id, suffix, alias)
       } catch (error) {
         console.error(`[react-x-if] ${id} transform failed: ${error}`)
-        return origin
+        return null
       }
     },
   }
