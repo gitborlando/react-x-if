@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "vite-plugin-react-x-if",
   "description": "A Vite plugin for React that enables Vue-like conditional rendering with `x-if` directive.",
   "keywords": [],
